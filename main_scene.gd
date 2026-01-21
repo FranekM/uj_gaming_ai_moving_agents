@@ -9,6 +9,7 @@ const OBSTACLE_COUNT_INIT: int = 12
 @onready var player : Player = $player
 @onready var health_bar : ProgressBar = $gui/margin/container/health_bar
 @onready var game_over : CanvasLayer = $game_over
+@onready var game_over_label : Label = $game_over/panel/center/game_over_label
 
 # hinding variables
 var hide_distance_from_obsbtacle : float = Obstacle.OBSTACLE_RADIUS_MIN / 1.5

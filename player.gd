@@ -109,6 +109,11 @@ func fire_ray() -> void:
 		var collider : Object = result.collider
 		if collider is Enemy:
 			collider.queue_free()
+			main_scene.enemies.erase(collider)
+			if main_scene.enemies.is_empty():
+				get_tree().paused = true
+				main_scene.game_over.visible = true
+				main_scene.game_over_label.text = "YOU WON"
 	
 	visual_ray.set_end_point(end_point)
 	visual_ray.visible = true
