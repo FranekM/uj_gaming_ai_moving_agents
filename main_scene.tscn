@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://6qowliy5gydc"]
+
+[ext_resource type="Script" uid="uid://ccwsvxhwmu37m" path="res://main_scene.gd" id="1_0f027"]
+[ext_resource type="PackedScene" uid="uid://diw1xpuy7v5wc" path="res://player.tscn" id="2_2c62f"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d5x1h"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0f027"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2c62f"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gyfs4"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="SystemFont" id="SystemFont_2c62f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gyfs4"]
+font = SubResource("SystemFont_2c62f")
+font_size = 200
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_0f027")
+
+[node name="player" parent="." instance=ExtResource("2_2c62f")]
+
+[node name="walls" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 3
+
+[node name="wall_north" type="CollisionShape2D" parent="walls"]
+position = Vector2(500, 0)
+shape = SubResource("WorldBoundaryShape2D_d5x1h")
+
+[node name="wall_south" type="CollisionShape2D" parent="walls"]
+position = Vector2(500, 500)
+shape = SubResource("WorldBoundaryShape2D_0f027")
+
+[node name="wall_east" type="CollisionShape2D" parent="walls"]
+position = Vector2(0, 250)
+shape = SubResource("WorldBoundaryShape2D_2c62f")
+
+[node name="wall_west" type="CollisionShape2D" parent="walls"]
+position = Vector2(1000, 250)
+shape = SubResource("WorldBoundaryShape2D_gyfs4")
+
+[node name="gui" type="CanvasLayer" parent="."]
+
+[node name="margin" type="MarginContainer" parent="gui"]
+custom_minimum_size = Vector2(400, 50)
+offset_right = 400.0
+offset_bottom = 67.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="container" type="HBoxContainer" parent="gui/margin"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+alignment = 1
+
+[node name="health_label" type="Label" parent="gui/margin/container"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "health:"
+vertical_alignment = 1
+
+[node name="spacer" type="Control" parent="gui/margin/container"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="health_bar" type="ProgressBar" parent="gui/margin/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="game_over" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="panel" type="PanelContainer" parent="game_over"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="center" type="CenterContainer" parent="game_over/panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="game_over_label" type="Label" parent="game_over/panel/center"]
+layout_mode = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_gyfs4")
+horizontal_alignment = 1
+vertical_alignment = 1
